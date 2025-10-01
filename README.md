@@ -1,8 +1,8 @@
-# 🚁 UAV Mission Control & Anomaly Detection Simulator
+#  UAV Mission Control & Anomaly Detection Simulator
 
 A comprehensive Python-based multi-agent system for simulating UAV operations with real-time anomaly detection and fault injection capabilities.
 
-## 🌟 Features
+##  Features
 
 - **Multi-Agent Architecture**: 11+ UAV subsystems with independent agents
 - **Real-Time Anomaly Detection**: ML-powered detection using Isolation Forest, One-Class SVM, and Local Outlier Factor
@@ -12,7 +12,7 @@ A comprehensive Python-based multi-agent system for simulating UAV operations wi
 - **Automated Reporting**: Multiple report formats (HTML, PDF, JSON)
 - **Production Ready**: Docker containerization with Nginx reverse proxy
 
-## 🏗️ Architecture
+##  Architecture
 
 ### UAV Subsystems
 - **Navigation**: GPS, IMU, compass systems
@@ -35,7 +35,7 @@ A comprehensive Python-based multi-agent system for simulating UAV operations wi
 - **Report Generator**: Automated report creation
 - **Web Dashboard**: Interactive control interface
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 - Python 3.9+
@@ -79,7 +79,7 @@ docker-compose up -d
 open http://localhost:8080
 ```
 
-## 📊 System Capabilities
+##  System Capabilities
 
 ### Anomaly Detection
 - **Algorithms**: Isolation Forest, One-Class SVM, Local Outlier Factor
@@ -99,7 +99,7 @@ open http://localhost:8080
 - **Alert System**: Threshold-based notifications
 - **Historical Data**: Long-term trend analysis
 
-## 🧪 Testing
+##  Testing
 
 Run the comprehensive test suite:
 
@@ -111,7 +111,7 @@ python -m pytest tests/ -v
 python -m pytest tests/test_fault_scenarios.py -v
 ```
 
-## 📈 Performance Metrics
+##  Performance Metrics
 
 - **Telemetry Rate**: 10Hz per subsystem
 - **Anomaly Detection**: <100ms latency
@@ -119,7 +119,7 @@ python -m pytest tests/test_fault_scenarios.py -v
 - **Manual Oversight Reduction**: 80% automation
 - **System Uptime**: 99.9% availability target
 
-## 🔧 Configuration
+##  Configuration
 
 Edit `config/settings.yaml` to customize:
 - UAV subsystem parameters
@@ -128,13 +128,13 @@ Edit `config/settings.yaml` to customize:
 - Monitoring intervals
 - Dashboard settings
 
-## 📚 Documentation
+##  Documentation
 
 - [API Documentation](docs/API.md)
 - [Deployment Guide](docs/DEPLOYMENT.md)
 - [Configuration Reference](config/settings.yaml)
 
-## 🤝 Contributing
+##  Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -146,23 +146,4 @@ Edit `config/settings.yaml` to customize:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🏆 Achievements
 
-- ✅ **Multi-agent telemetry system** with 11+ UAV subsystems
-- ✅ **Real-time anomaly detection** with ML algorithms
-- ✅ **Comprehensive fault injection** with 50+ scenarios
-- ✅ **Advanced monitoring** with 80% manual oversight reduction
-- ✅ **Web-based dashboard** for real-time visualization
-- ✅ **Automated reporting** in multiple formats
-- ✅ **Production-ready deployment** with Docker and Nginx
-
-## 📞 Support
-
-For questions, issues, or contributions, please:
-- Open an issue on GitHub
-- Check the documentation
-- Review the test cases for examples
-
----
-
-**Built with ❤️ for UAV mission control and anomaly detection**
