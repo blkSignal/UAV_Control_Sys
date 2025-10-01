@@ -1,0 +1,147 @@
+# UAV Mission Control & Anomaly Detection Simulator Configuration
+
+# System Configuration
+system:
+  name: "UAV Mission Control Simulator"
+  version: "1.0.0"
+  debug: false
+  simulation_speed: 1.0  # Multiplier for simulation speed
+
+# UAV Configuration
+uav:
+  count: 5
+  subsystems:
+    - name: "Navigation"
+      agent_class: "NavigationAgent"
+      telemetry_rate: 10  # Hz
+      critical: true
+    - name: "Propulsion"
+      agent_class: "PropulsionAgent"
+      telemetry_rate: 20
+      critical: true
+    - name: "Communication"
+      agent_class: "CommunicationAgent"
+      telemetry_rate: 5
+      critical: true
+    - name: "Power"
+      agent_class: "PowerAgent"
+      telemetry_rate: 15
+      critical: true
+    - name: "Payload"
+      agent_class: "PayloadAgent"
+      telemetry_rate: 8
+      critical: false
+    - name: "Environmental"
+      agent_class: "EnvironmentalAgent"
+      telemetry_rate: 12
+      critical: false
+    - name: "Flight_Control"
+      agent_class: "FlightControlAgent"
+      telemetry_rate: 25
+      critical: true
+    - name: "Sensor_Fusion"
+      agent_class: "SensorFusionAgent"
+      telemetry_rate: 30
+      critical: true
+    - name: "Mission_Planning"
+      agent_class: "MissionPlanningAgent"
+      telemetry_rate: 2
+      critical: false
+    - name: "Safety_Systems"
+      agent_class: "SafetySystemsAgent"
+      telemetry_rate: 5
+      critical: true
+    - name: "Data_Storage"
+      agent_class: "DataStorageAgent"
+      telemetry_rate: 3
+      critical: false
+
+# Anomaly Detection Configuration
+anomaly_detection:
+  enabled: true
+  algorithm: "isolation_forest"  # isolation_forest, one_class_svm, local_outlier_factor
+  threshold: 0.8
+  window_size: 100
+  retrain_interval: 300  # seconds
+  features:
+    - "cpu_usage"
+    - "memory_usage"
+    - "temperature"
+    - "voltage"
+    - "current"
+    - "altitude"
+    - "speed"
+    - "battery_level"
+
+# Fault Injection Configuration
+fault_injection:
+  enabled: true
+  max_concurrent_faults: 3
+  scenarios:
+    - name: "Power_Failure"
+      subsystem: "Power"
+      probability: 0.1
+      duration: 30
+      severity: "critical"
+    - name: "Communication_Loss"
+      subsystem: "Communication"
+      probability: 0.15
+      duration: 60
+      severity: "high"
+    - name: "Navigation_Drift"
+      subsystem: "Navigation"
+      probability: 0.2
+      duration: 45
+      severity: "medium"
+    - name: "Sensor_Malfunction"
+      subsystem: "Sensor_Fusion"
+      probability: 0.25
+      duration: 20
+      severity: "medium"
+    - name: "Propulsion_Reduction"
+      subsystem: "Propulsion"
+      probability: 0.1
+      duration: 40
+      severity: "high"
+
+# Monitoring Configuration
+monitoring:
+  log_level: "INFO"
+  log_file: "logs/uav_simulator.log"
+  metrics_retention: 86400  # seconds (24 hours)
+  alert_cooldown: 60  # seconds
+  performance_tracking:
+    enabled: true
+    cpu_threshold: 80
+    memory_threshold: 85
+    disk_threshold: 90
+
+# Dashboard Configuration
+dashboard:
+  host: "0.0.0.0"
+  port: 8050
+  refresh_interval: 1000  # milliseconds
+  max_data_points: 1000
+  themes:
+    default: "bootstrap"
+    dark_mode: true
+
+# Database Configuration
+database:
+  url: "sqlite:///data/uav_simulator.db"
+  pool_size: 10
+  max_overflow: 20
+  echo: false
+
+# Redis Configuration
+redis:
+  url: "redis://localhost:6379"
+  db: 0
+  max_connections: 10
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  cors_origins: ["*"]
+  rate_limit: 100  # requests per minute
