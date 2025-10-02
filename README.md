@@ -190,17 +190,59 @@ open http://localhost:8080
 - **Alert System**: Threshold-based notifications
 - **Historical Data**: Long-term trend analysis
 
-## 🧪 Testing
+## 🧪 Testing & Quality Assurance
 
-Run the comprehensive test suite:
+### Comprehensive Test Suite
+The system includes a multi-layered testing approach ensuring reliability and performance:
 
 ```bash
-# Run all tests
-python -m pytest tests/ -v
+# Run complete test suite
+python -m pytest tests/ -v --cov=src --cov-report=html
 
 # Run specific test categories
-python -m pytest tests/test_fault_scenarios.py -v
+python -m pytest tests/unit/ -v                    # Unit tests
+python -m pytest tests/integration/ -v              # Integration tests
+python -m pytest tests/test_fault_scenarios.py -v   # Fault injection tests
+python -m pytest tests/test_anomaly_detection.py -v # ML algorithm tests
+python -m pytest tests/test_performance.py -v      # Performance benchmarks
+
+# Frontend testing
+npm test                                             # Jest unit tests
+npm run test:e2e                                     # Cypress end-to-end tests
+npm run test:coverage                                # Coverage reports
 ```
+
+### Test Categories
+
+#### 🔬 Unit Tests
+- **Agent Testing**: Individual subsystem agent functionality
+- **Algorithm Testing**: ML anomaly detection algorithm validation
+- **Data Processing**: Telemetry data validation and transformation
+- **API Endpoints**: REST API endpoint functionality and error handling
+
+#### 🔗 Integration Tests
+- **Multi-Agent Communication**: Inter-agent message passing and coordination
+- **Database Integration**: Data persistence and retrieval operations
+- **Real-time Processing**: End-to-end telemetry processing pipeline
+- **Fault Recovery**: System behavior during fault injection scenarios
+
+#### ⚡ Performance Tests
+- **Latency Benchmarks**: Sub-100ms anomaly detection validation
+- **Throughput Testing**: 10Hz telemetry processing capacity
+- **Memory Usage**: Resource consumption under various load conditions
+- **Scalability**: System performance with increasing agent count
+
+#### 🛡️ Security Tests
+- **Authentication**: User authentication and authorization
+- **Data Encryption**: Secure data transmission and storage
+- **Input Validation**: Malicious input handling and sanitization
+- **Access Control**: Role-based permission enforcement
+
+### Test Coverage Requirements
+- **Minimum Coverage**: 90% code coverage across all modules
+- **Critical Paths**: 100% coverage for fault detection and recovery
+- **Performance Baselines**: All performance metrics must meet specifications
+- **Security Validation**: Complete security test suite execution
 
 ## 📈 Performance Metrics
 
@@ -219,11 +261,116 @@ Edit `config/settings.yaml` to customize:
 - Monitoring intervals
 - Dashboard settings
 
-## 📚 Documentation
+## 📚 Documentation & API Reference
 
-- [API Documentation](docs/API.md)
+### Core API Endpoints
+
+#### Telemetry Management
+```http
+GET    /api/v1/telemetry/streams          # Get active telemetry streams
+POST   /api/v1/telemetry/start            # Start telemetry collection
+POST   /api/v1/telemetry/stop             # Stop telemetry collection
+GET    /api/v1/telemetry/data/{agent_id}  # Get agent-specific telemetry data
+```
+
+#### Anomaly Detection
+```http
+GET    /api/v1/anomalies/detected         # Get detected anomalies
+POST   /api/v1/anomalies/configure        # Configure detection parameters
+GET    /api/v1/anomalies/history          # Get anomaly history
+POST   /api/v1/anomalies/acknowledge      # Acknowledge anomaly
+```
+
+#### Fault Management
+```http
+GET    /api/v1/faults/scenarios           # Get available fault scenarios
+POST   /api/v1/faults/inject             # Inject fault scenario
+POST   /api/v1/faults/clear              # Clear active faults
+GET    /api/v1/faults/status             # Get fault injection status
+```
+
+#### System Control
+```http
+GET    /api/v1/system/status             # Get system health status
+POST   /api/v1/system/agents/start       # Start specific agent
+POST   /api/v1/system/agents/stop        # Stop specific agent
+GET    /api/v1/system/metrics            # Get system performance metrics
+```
+
+#### Mission Management
+```http
+GET    /api/v1/missions/active           # Get active missions
+POST   /api/v1/missions/create          # Create new mission
+POST   /api/v1/missions/update          # Update mission parameters
+POST   /api/v1/missions/execute         # Execute mission plan
+```
+
+### WebSocket Real-time Updates
+```javascript
+// Connect to real-time telemetry stream
+const ws = new WebSocket('ws://localhost:8000/ws/telemetry');
+
+ws.onmessage = function(event) {
+    const data = JSON.parse(event.data);
+    // Handle real-time telemetry data
+    updateDashboard(data);
+};
+
+// Subscribe to anomaly alerts
+const anomalyWs = new WebSocket('ws://localhost:8000/ws/anomalies');
+anomalyWs.onmessage = function(event) {
+    const anomaly = JSON.parse(event.data);
+    // Handle anomaly alerts
+    showAnomalyAlert(anomaly);
+};
+```
+
+### Data Models
+
+#### Telemetry Data Structure
+```json
+{
+    "agent_id": "navigation_agent_001",
+    "timestamp": "2024-01-15T10:30:45.123Z",
+    "data": {
+        "gps": {
+            "latitude": 34.0522,
+            "longitude": -118.2437,
+            "altitude": 150.5,
+            "accuracy": 2.1
+        },
+        "imu": {
+            "acceleration": [0.1, -0.2, 9.8],
+            "angular_velocity": [0.05, -0.03, 0.01],
+            "temperature": 25.3
+        }
+    },
+    "quality_score": 0.95,
+    "status": "healthy"
+}
+```
+
+#### Anomaly Detection Result
+```json
+{
+    "anomaly_id": "anom_20240115_103045_001",
+    "timestamp": "2024-01-15T10:30:45.123Z",
+    "agent_id": "navigation_agent_001",
+    "anomaly_type": "position_drift",
+    "severity": "medium",
+    "confidence": 0.87,
+    "description": "GPS position showing unexpected drift pattern",
+    "recommended_action": "verify_gps_signal_quality"
+}
+```
+
+### Documentation Links
+- [Complete API Documentation](docs/API.md)
 - [Deployment Guide](docs/DEPLOYMENT.md)
 - [Configuration Reference](config/settings.yaml)
+- [Agent Development Guide](docs/AGENT_DEVELOPMENT.md)
+- [Fault Scenario Library](docs/FAULT_SCENARIOS.md)
+- [Performance Tuning Guide](docs/PERFORMANCE.md)
 
 ## 🤝 Contributing
 
