@@ -12,35 +12,126 @@ A comprehensive Python-based multi-agent system for simulating UAV operations wi
 - **Automated Reporting**: Multiple report formats (HTML, PDF, JSON)
 - **Production Ready**: Docker containerization with Nginx reverse proxy
 
-## 🏗️ Architecture
+## 🏗️ System Architecture
 
-### UAV Subsystems
-- **Navigation**: GPS, IMU, compass systems
-- **Propulsion**: Motors, ESCs, propeller management
-- **Communication**: Signal handling, satellite links
-- **Power**: Battery management, voltage monitoring
-- **Payload**: Camera, gimbal, sensor systems
-- **Environmental**: Weather, air quality monitoring
-- **Flight Control**: Autopilot, stabilization
-- **Sensor Fusion**: Data integration and processing
-- **Mission Planning**: Route optimization, task scheduling
-- **Safety Systems**: Emergency procedures, fail-safes
-- **Data Storage**: Telemetry logging, data management
+### Multi-Agent UAV Subsystem Architecture
+The system implements a distributed multi-agent architecture where each UAV subsystem operates as an independent agent with specialized responsibilities:
 
-### Core Components
-- **Telemetry Manager**: Real-time data collection and distribution
-- **Anomaly Detector**: ML-based anomaly identification
-- **Fault Manager**: Fault injection and recovery simulation
-- **Metrics Collector**: System performance monitoring
-- **Report Generator**: Automated report creation
-- **Web Dashboard**: Interactive control interface
+#### Core UAV Subsystems
+- **🧭 Navigation Agent**: GPS, IMU, compass systems with Kalman filtering
+- **⚡ Propulsion Agent**: Motor control, ESC management, propeller optimization
+- **📡 Communication Agent**: Signal processing, satellite links, mesh networking
+- **🔋 Power Agent**: Battery management, voltage monitoring, power optimization
+- **📷 Payload Agent**: Camera control, gimbal stabilization, sensor integration
+- **🌡️ Environmental Agent**: Weather monitoring, air quality assessment
+- **✈️ Flight Control Agent**: Autopilot algorithms, stabilization systems
+- **🔄 Sensor Fusion Agent**: Multi-sensor data integration and processing
+- **🗺️ Mission Planning Agent**: Route optimization, task scheduling, pathfinding
+- **🛡️ Safety Agent**: Emergency procedures, fail-safe mechanisms
+- **💾 Data Storage Agent**: Telemetry logging, data management, archival
+
+### System Architecture Diagram
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    UAV Mission Control System                   │
+├─────────────────────────────────────────────────────────────────┤
+│  Web Dashboard (React)  │  API Gateway  │  Real-time Monitor    │
+├─────────────────────────────────────────────────────────────────┤
+│              Telemetry Manager (Central Hub)                    │
+├─────────────────────────────────────────────────────────────────┤
+│  Navigation │ Propulsion │ Communication │ Power │ Payload      │
+│  Agent      │ Agent      │ Agent         │ Agent │ Agent        │
+├─────────────────────────────────────────────────────────────────┤
+│  Environmental │ Flight Control │ Sensor Fusion │ Mission       │
+│  Agent         │ Agent          │ Agent         │ Planning      │
+├─────────────────────────────────────────────────────────────────┤
+│  Safety Agent  │ Data Storage Agent │ Anomaly Detector         │
+├─────────────────────────────────────────────────────────────────┤
+│              Fault Manager │ Metrics Collector │ Report Gen     │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Core System Components
+
+#### 🎯 Telemetry Manager
+- **Real-time Data Collection**: 10Hz sampling rate per subsystem
+- **Data Distribution**: Pub/Sub messaging with ZeroMQ
+- **Data Validation**: Multi-layer validation and quality assessment
+- **Message Queuing**: Apache Kafka for reliable message delivery
+
+#### 🔍 Anomaly Detector
+- **ML Algorithms**: Isolation Forest, One-Class SVM, Local Outlier Factor
+- **Real-time Processing**: Sub-100ms detection latency
+- **Multi-dimensional Analysis**: Complex pattern recognition across 50+ metrics
+- **Adaptive Thresholds**: Dynamic sensitivity adjustment based on mission phase
+
+#### ⚠️ Fault Manager
+- **Fault Injection**: 50+ pre-configured failure scenarios
+- **Recovery Simulation**: Automatic and manual fault clearance procedures
+- **Scenario Testing**: Configurable fault characteristics and duration
+- **Impact Assessment**: System-wide failure impact analysis
+
+#### 📊 Metrics Collector
+- **Performance Monitoring**: CPU, memory, disk, network utilization
+- **System Health**: Component status and operational metrics
+- **Alert System**: Threshold-based notifications and escalation
+- **Historical Analysis**: Long-term trend analysis and reporting
+
+#### 📋 Report Generator
+- **Automated Reports**: HTML, PDF, JSON format generation
+- **Custom Templates**: Configurable report layouts and content
+- **Scheduled Generation**: Time-based and event-triggered reports
+- **Data Export**: CSV, JSON, and database export capabilities
+
+#### 🖥️ Web Dashboard
+- **Real-time Visualization**: Live telemetry data display
+- **Interactive Controls**: Mission control and system configuration
+- **Multi-user Support**: Role-based access control and permissions
+- **Responsive Design**: Mobile and desktop compatibility
+
+## 🛠️ Technology Stack
+
+### Backend Technologies
+- **Core Language**: Python 3.9+ with asyncio for concurrent processing
+- **Web Framework**: FastAPI for high-performance API endpoints
+- **Message Queue**: Apache Kafka for reliable telemetry distribution
+- **Real-time Communication**: ZeroMQ for low-latency inter-agent communication
+- **Database**: PostgreSQL for persistent data, Redis for caching
+- **ML Libraries**: scikit-learn, pandas, numpy for anomaly detection
+- **Data Processing**: Apache Spark for large-scale telemetry analysis
+
+### Frontend Technologies
+- **Framework**: React 18+ with TypeScript
+- **State Management**: Redux Toolkit for complex state handling
+- **Real-time Updates**: WebSocket connections for live data streaming
+- **Visualization**: D3.js and Chart.js for interactive dashboards
+- **UI Components**: Material-UI for consistent design system
+- **Build Tools**: Vite for fast development and optimized builds
+
+### Infrastructure & DevOps
+- **Containerization**: Docker and Docker Compose for deployment
+- **Reverse Proxy**: Nginx for load balancing and SSL termination
+- **CI/CD**: GitHub Actions for automated testing and deployment
+- **Monitoring**: Prometheus and Grafana for system metrics
+- **Logging**: ELK Stack (Elasticsearch, Logstash, Kibana)
+- **Security**: OAuth 2.0, JWT tokens, HTTPS encryption
+
+### Development Tools
+- **Testing**: pytest, Jest, Cypress for comprehensive testing
+- **Code Quality**: Black, flake8, ESLint, Prettier
+- **Documentation**: Sphinx for API docs, MkDocs for user guides
+- **Version Control**: Git with conventional commit messages
+- **Package Management**: Poetry for Python dependencies, npm for frontend
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Python 3.9+
-- Docker (optional)
-- Git
+- **Python**: 3.9+ with pip and virtual environment support
+- **Node.js**: 16+ with npm for frontend development
+- **Docker**: 20+ with Docker Compose for containerized deployment
+- **Git**: Latest version for version control
+- **Memory**: Minimum 8GB RAM for full system operation
+- **Storage**: 10GB free space for dependencies and data
 
 ### Installation
 
